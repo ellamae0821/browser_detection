@@ -8,23 +8,22 @@
 	    ?><pre><?php print_r($object); ?></pre><?php
 	}
 
-	// require_once("config.php");
-	// echo phpversion()."<br>";
-	$current_user = wp_get_current_user();
-	$user_email = $current_user->data->user_email;
+	// $current_user = wp_get_current_user();
+	// if ($current_user){
+	// 	$user_email = $current_user->data->user_email;
+	// }else{
+	// 	$user_email = "You are not Logged In";
+	// }
+	
 	$user_id = $current_user->ID;
-	print_pre($current_user->first_name );
+
 
  	require_once( $_SERVER['DOCUMENT_ROOT'] . "/wp-load.php" );
   	require_once( $_SERVER['DOCUMENT_ROOT'] . "/resources/new_browser_detection.php" );
     function get_user_info($email)
     {
-        // require_once( $_SERVER['DOCUMENT_ROOT'] . "/resources/browser_detection.php" );
-        // require_once( "browser_detection.php" );
-
-
         // $account_no = get_user_account_number( $user->ID, $email );
-        $account_no = $user_id;
+        // $account_no = $user_id;
         $browser_number = browser_detection( 'browser_number' );
         $browser_working = browser_detection( 'browser_working' );
         $os = browser_detection( 'os' );
@@ -35,8 +34,8 @@
         date_default_timezone_set('Pacific/Honolulu');
 
         $params = array( 
-                                  'email' => $email,
-                         'account_number' => $account_no,
+                                  // 'email' => $email,
+                         // 'account_number' => $account_no,
                          'browser_number' => $browser_number,
                         'browser_working' => $browser_working,
                                      'os' => $os,
@@ -68,6 +67,7 @@
 	<meta name="description" content="">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="<?php echo get_template_directory_uri(); ?>/help_com.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>	
 </head>
 <body id="h_body">
 	<div class="faq-header">Frequently Asked Questions</div>
@@ -144,30 +144,98 @@
 	    <div class="plus">+</div>
 	    <label for="q2" class="panel-title">I cleared my cache, and still not able to view the comments?</label>
 	    <div class="panel-content">
-	    	<?php $mobile_test = browser_detection('mobile_test'); 
-							print_pre($mobile_test);
+
+		<div class="tbl-container">
+		   <div class="tbl-row">
+		    <div class="col-lg-12">
+		      <div class="card">
+		        <div class="card-header">
+		           Here are the information about your browser that can help our team troubleshoot the issues you are experiencing. Click send to submit these information to us and help you with your problem.
+		        </div>
+		        <?php $mobile_test = browser_detection('mobile_test'); 
+					if ($mobile_test) {
 						?>
-
-			<p>Here are the information about your browser that can help our team troubleshoot the issues you are experiencing. </p>
-			<?php $mobile_test = browser_detection('mobile_test'); 
-				if ($mobile_test) {
-					print_pre($mobile_test);?>
-
-				
-				<?php }else{ ?>
-					Your Browser name &amp; version: <?php echo ucfirst($user_data['browser_name']) . " " . ($user_data['browser_number']); ?><br/>
-						Your Operating Sysem : <?php echo ucfirst($user_data['os']) . " " . $user_data['os_number'] ; ?> <br/>
-						Javascript Enabled: <br/>
-						Cookies Enabled: <br/>
-				<?php }
-			?>
-
-
+						<!-- MOBILE -->
+				        <div class="card-body">
+				          <table class="table table-responsive-card">
+				            <thead>
+				              <tr>
+				                <th scope="col"><b>Title</b></th>
+				                <th scope="col"><b>Data</b></th>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr> 
+				               <th scope="row">Browser:</th>
+				                <td data-title="title"><?php echo ucfirst($user_data['browser_name']). " " .($user_data['browser_number']); ?></td>
+				              </tr>
+				              <tr>
+				                 <th scope="row">Operating System: </th>
+				                <td data-title="title"><?php echo $mobile_test. " " .(browser_detection('mobile_data')[4]) ?></td>
+				              </tr>
+				              <tr>
+				                 <th scope="row">Javascript Enabled:</th>
+				                <td data-title="title"><script>document.write("TRUE")</script><noscript>FALSE</noscript></td>
+				              </tr>
+				              <tr>
+				                 <th scope="row">Cookies Enabled:</th>
+				                <td data-title="title"><span id="cookie" style="text-transform: uppercase;"></span></td>
+				              </tr>
+				              <tr>
+				              	<td><button>Send</button></td>
+				              </tr>
+				            </tbody>
+				          </table>
+				        </div>
+					<?php }else{?>
+					<!-- NON-MOBILE DEVICE -->
+						<div class="card-body">
+				          <table class="table table-responsive-card">
+				            <thead>
+				              <tr>
+				                <th scope="col"><b> </b></th>
+				                <th scope="col"><b>Data</b></th>
+				              </tr>
+				            </thead>
+				            <tbody>
+				              <tr> 
+				               <th scope="row">Browser:</th>
+				                <td data-title="title"><?php echo ucfirst($user_data['browser_name']). " " .($user_data['browser_number']); ?></td>
+				              </tr>
+				              <tr>
+				                 <th scope="row">Operating System: </th>
+				                <td data-title="title"><?php echo ucfirst($user_data['os']) . " " . $user_data['os_number'] ; ?></td>
+				              </tr>
+				              <tr>
+				                 <th scope="row">Javascript Enabled: </th>
+				                <td data-title="title"><script>document.write("TRUE")</script><noscript>FALSE</noscript>
+				                </td>
+				              </tr>
+				              <tr>
+				                 <th scope="row">Cookies Enabled:</th>
+				                <td data-title="title"><span id="cookie" style="text-transform: uppercase;"></span></td>
+				              </tr>
+				              <tr>
+				              	<td><button>Send</button></td>
+				              </tr>
+				            </tbody>
+				          </table>
+				        </div>
+					<?php }
+				?>
+		      </div>
+		    </div>
+		    <!--/.col-->
+		  </div>
+		</div>
+								
 						
-						
-					
-						<!-- <input type="text" name="description"  style="max-height: 12.5em;"> -->
-						<!-- <textarea style="width: 100%" placeholder="Please describe the error you encountered."></textarea> -->
+
+
+
+
+
+
 
 		</div>
 	  </div>
@@ -176,10 +244,27 @@
 	    <input id="q3" type="checkbox" class="panel">
 	    <div class="plus">+</div>
 	    <label for="q3" class="panel-title"> Why was my comment rejected?</label>
-	    <div class="panel-content">Certain questions are better left &nbsp; <a href="https://en.wikipedia.org/wiki/The_Unanswered_Question" target="_blank">unanswered</a></div>
+	    <div class="panel-content">
+			Here are a few possible reasons why your comment was rejected: 
+			<ol>
+				<li>Your comment contains link.</li>
+				<li>Your comment contains banned / toxic words.</li>
+				<li>Your comment has been reported unsuitable (Abusive / Inappropriate Language / Possible ad/maketing).</li>
+			</ol>
+			If you have any concerns on our comment moderation, let us know!
+			<textarea name="moderation_problem" id="moderation_problem" cols="30" rows="10" placeholder="Write your concern here...">
+				
+			</textarea>
+	    </div>
 	  </div>
 	</div>
 
+	<script>
+	    $(function() {
+	    	var x = navigator.cookieEnabled;
+		    document.getElementById("cookie").innerHTML = x;
+	    });
+	</script>
 	
 
 </body>

@@ -1,0 +1,163 @@
+@import url(https://fonts.googleapis.com/css?family=Raleway);
+
+#h_body {
+  color: #333;
+  background: #fcfcfc;
+  font-family: 'Raleway', sans-serif;
+  overflow-x: hidden;
+}
+
+.faq-header{
+  font-size: 42px;
+  border-bottom: 1px dotted #ccc;
+  padding: 24px;
+}
+
+.faq-content {
+  margin: 0 auto;
+}
+
+.faq-question {
+  padding: 20px 0;
+  border-bottom: 1px dotted #ccc;
+}
+
+.panel-title {
+  font-size: 24px;
+  width: 100%;
+  position: relative;
+  margin: 0;
+  padding: 10px 10px 0 48px;
+  display: block;
+  cursor: pointer;
+}
+
+.panel-content {
+  font-size: 20px;
+  padding: 0px 14px;
+  margin: 0 40px;
+  height: 0;
+  overflow: hidden;
+/*  z-index: -1;*/
+  position: relative;
+  opacity: 0;
+  -webkit-transition: .4s ease;
+  -moz-transition: .4s ease;
+  -o-transition: .4s ease;
+  transition: .4s ease;
+}
+
+.panel:checked ~ .panel-content{
+  height: auto;
+  opacity: 1;
+  padding: 14px;
+}
+
+.plus {
+  position: absolute;
+  margin-left: 20px;
+  margin-top: 4px;
+  z-index: 5;
+  font-size: 42px;
+  line-height: 100%;
+  -webkit-user-select: none;    
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -webkit-transition: .2s ease;
+  -moz-transition: .2s ease;
+  -o-transition: .2s ease;
+  transition: .2s ease;
+  cursor: pointer;
+}
+
+.panel:checked ~ .plus {
+  -webkit-transform: rotate(45deg);
+  -moz-transform: rotate(45deg);
+  -o-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+.panel {
+  display: none;
+}
+
+
+@media (max-width: 768px) {
+  .table-responsive-card {
+    width: 100%;
+    margin-bottom: 1.5em;
+  }
+  .table-responsive-card thead {
+    position: absolute;
+    clip: rect(1px 1px 1px 1px);
+    /* IE6, IE7 */
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0;
+    border: 0;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+  }
+  .table-responsive-card tbody,
+  .table-responsive-card tr,
+  .table-responsive-card th,
+  .table-responsive-card td {
+    display: block;
+    padding: 0;
+    text-align: left;
+    white-space: normal;
+  }
+  .table-responsive-card th,
+  .table-responsive-card td {
+    padding: .5em;
+    vertical-align: middle;
+  }
+  .table-responsive-card caption {
+    margin-bottom: 1em;
+    font-size: 1em;
+    font-weight: bold;
+    text-align: center;
+  }
+  .table-responsive-card tbody tr {
+    margin-bottom: 1em;
+    border: 1px solid #e0e0e0;
+  }
+  .table-responsive-card tbody tr:last-of-type {
+    margin-bottom: 0;
+  }
+  .table-responsive-card tbody th[scope="row"] {
+    background-color: #f7f7f7;
+    color: #222;
+  }
+  .table-responsive-card tbody th {
+    border-top: 0;
+  }
+  .table-responsive-card tbody td[data-type=currency] {
+    text-align: right;
+  }
+
+  .table-responsive-card tbody td[data-title] {
+    &:before {
+      content: attr(data-title);
+      float: left;
+      margin-right: 1em;
+    }
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+  .table-responsive-card tbody td {
+    text-align: right;
+  }
+}
+
+
+@media (min-width: 768px) {
+  .table-responsive-card tbody tr:first-child td:first-child {
+    border-top: 0;
+  }
+}
